@@ -1,0 +1,366 @@
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Courie';
+    line-height:1.6;
+    color:#333;
+}
+
+.container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px;
+}
+
+/* Header */
+.header{
+    background:#2c3e50;
+    color:white;
+    padding:1em 0;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:10000;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo h2{
+    font-size:2.5em;
+    font-weight:bold;
+    margin-bottom:0.2rem;
+}
+
+.logo .tagline{
+    font-size:0.9em;
+    opacity:0.8;
+}
+
+/* Nav */
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:2em;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    padding:0.5rem 1em;
+    border-radius:4px;
+    transition:background-color 0.3s ease;
+}
+
+.nav-links a:hover{
+    background-color:rgba(255,255,255,0.1);
+}
+
+/* Hero */
+.hero{
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)),
+    url("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/54/46/dd/restaurant-dining-space.jpg") center/cover;
+
+    margin-top:80px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+}
+
+.hero-content h2{
+    font-size:3.5rem;
+    font-weight:300;
+    letter-spacing:2px;
+}
+
+.hero-content p{
+    font-size:1.2rem;
+    margin-bottom:2rem;
+    max-width:600px;
+}
+
+/* Buttons */
+.hero-buttons{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+}
+
+.btn{
+    padding:1rem 2rem;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+    transition:all 0.3s ease;
+    display:inline-block;
+}
+
+.btn-primary{
+    background:#e74c3c;
+    color:white;
+}
+
+.btn-secondary{
+    background:transparent;
+    border:2px solid white;
+    color:white;
+}
+
+.btn-secondary:hover{
+    background:white;
+    color:#2c3e50;
+}
+/* MENU SECTION */
+.menu{
+    padding:80px 0;
+    background:#f8f9fa;
+    text-align:center;
+}
+
+.section-title{
+    font-size:2.5rem;
+    margin-bottom:10px;
+    color:#2c3e50;
+}
+
+.section-subtitle{
+    color:#777;
+    margin-bottom:40px;
+}
+
+/* Grid Layout */
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+    gap:30px;
+}
+
+/* Card */
+.menu-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:transform 0.3s ease;
+}
+
+.menu-card:hover{
+    transform:translateY(-10px);
+}
+
+/* Image */
+.menu-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+/* Content */
+.menu-card h3{
+    margin:15px 0 5px;
+    color:#2c3e50;
+}
+
+.menu-card p{
+    padding:0 15px;
+    font-size:0.9rem;
+    color:#666;
+}
+
+.price{
+    display:block;
+    font-weight:bold;
+    color:#e74c3c;
+    margin:15px 0 20px;
+    font-size:1.2rem;
+}
+/* ABOUT SECTION */
+.about{
+    padding:80px 0;
+    background:white;
+}
+
+.about-container{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    flex-wrap:wrap;
+}
+
+/* Image */
+.about-image{
+    flex:1;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* Content */
+.about-content {
+    flex:1;
+}
+
+ h1{
+    font-size:2.5rem;
+    color:#2c3e50;
+    margin-bottom:20px;
+    margin-top: -90px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.about-content h2{
+    font-size:2.5rem;
+    color:#2c3e50;
+    margin-bottom:20px;
+}
+
+.about-content p{
+    margin-bottom:15px;
+    color:#555;
+    line-height:1.7;
+}
+/* CONTACT SECTION */
+.contact{
+    padding:80px 0;
+    background:#f8f9fa;
+    text-align:center;
+}
+
+.contact-container{
+    display:flex;
+    gap:40px;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
+/* Info */
+.contact-info{
+    flex:1;
+    text-align:left;
+}
+
+.contact-info h3{
+    margin-bottom:15px;
+    color:#2c3e50;
+}
+
+.contact-info p{
+    margin-bottom:10px;
+    color:#555;
+}
+
+/* Form */
+.contact-form{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:1rem;
+    width:100%;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+    outline:none;
+    border-color:#e74c3c;
+}
+
+.contact-form button{
+    align-self:flex-start;
+}
+.map iframe{
+    width:100%;
+    border:none;
+}
+/* ===== FIXED PREMIUM FOOTER ===== */
+
+.footer{
+    background:#111;
+    color:white;
+    padding:60px 0 20px;
+}
+
+.footer-wrapper{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+}
+
+.footer-logo{
+    color:#e74c3c;
+    margin-bottom:15px;
+}
+
+.footer-box h3{
+    margin-bottom:15px;
+}
+
+.footer-box p{
+    color:#bbb;
+    line-height:1.6;
+}
+
+/* links */
+.footer-box ul{
+    list-style:none;
+    padding:0;
+}
+
+.footer-box ul li{
+    margin-bottom:8px;
+}
+
+.footer-box a{
+    color:#bbb;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.footer-box a:hover{
+    color:#e74c3c;
+}
+
+/* social */
+.footer-social{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+/* bottom */
+.footer-bottom{
+    text-align:center;
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    color:#aaa;
+}
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:0 20px;
+}

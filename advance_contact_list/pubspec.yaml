@@ -1,0 +1,39 @@
+name: advance_contact_list
+description: "An advanced Flutter Contact Manager application with rich features."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  url_launcher: ^6.2.5
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icons/icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icons/icon.png"
+  web:
+    generate: true
+    image_path: "assets/icons/icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/icon.png
+    - asserts/icons/icon.png

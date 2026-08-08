@@ -1,0 +1,6 @@
+**/.gradle/
+**/build/
+**/.dart_tool/
+**/.idea/
+**/.metadata
+**/*.lock

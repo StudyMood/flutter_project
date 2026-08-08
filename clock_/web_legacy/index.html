@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abhishek -Modern Clock & Time Suite</title>
+  <meta name="description"
+    content="A premium, glassmorphic suite featuring Digital/Analog Clocks, Stopwatch, Countdown Timer, and World Clock with responsive widgets and dynamic ambient styling.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Cinematic Animated Video-Like Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Dynamic Animated Ambient Background Blobs (kept for accent color sync) -->
+  <div class="bg-blobs" style="opacity:0;">
+    <div class="blob blob-1" id="blob-1"></div>
+    <div class="blob blob-2" id="blob-2"></div>
+    <div class="blob blob-3" id="blob-3"></div>
+  </div>
+
+  <!-- Main Glassmorphic Application Wrapper -->
+  <div class="app-container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div>
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <span class="logo-text">Abhishek Clock</span>
+        </div>
+
+        <nav class="nav-menu">
+          <button class="nav-item active" data-tab="clock-tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Clock</span>
+          </button>
+
+          <button class="nav-item" data-tab="stopwatch-tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 15 15"></polyline>
+              <path d="M12 2v2"></path>
+              <path d="M17 2l-1.5 1.5"></path>
+              <path d="M7 2l1.5 1.5"></path>
+            </svg>
+            <span>Stopwatch</span>
+          </button>
+
+          <button class="nav-item" data-tab="timer-tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="M4.93 4.93l1.41 1.41"></path>
+              <path d="M17.66 17.66l1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="M6.34 17.66l-1.41 1.41"></path>
+              <path d="M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+            <span>Timer</span>
+          </button>
+
+          <button class="nav-item" data-tab="world-tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+              <path d="M2 12h20"></path>
+            </svg>
+            <span>World Clock</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Settings & Customization Drawer -->
+      <div class="settings-section">
+        <!-- Theme Switcher -->
+        <div class="theme-toggle-container">
+          <span class="setting-label">Theme</span>
+          <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Theme">
+            <!-- Sun Icon (Default in Dark Mode, to switch to Light) -->
+            <svg id="theme-sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="M4.93 4.93l1.41 1.41"></path>
+              <path d="M17.66 17.66l1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="M6.34 17.66l-1.41 1.41"></path>
+              <path d="M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+            <!-- Moon Icon (Hidden, shown in Light Mode) -->
+            <svg id="theme-moon-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Custom Ambient Accent Color -->
+        <div>
+          <span class="setting-label" style="display:block; margin-bottom: 10px;">Accent Color</span>
+          <div class="accent-colors">
+            <div class="accent-dot accent-cyan active" data-hue="190"></div>
+            <div class="accent-dot accent-emerald" data-hue="150"></div>
+            <div class="accent-dot accent-pink" data-hue="330"></div>
+            <div class="accent-dot accent-amber" data-hue="35"></div>
+            <div class="accent-dot accent-purple" data-hue="270"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Content -->
+    <main class="main-viewport">
+
+      <!-- ==========================================
+           TAB 1: TIME DISPLAY & ANALOG CLOCK
+           ========================================== -->
+      <section class="tab-content active" id="clock-tab">
+        <div class="view-header">
+          <h1 class="view-title">Active Time</h1>
+          <p class="view-subtitle">Live high-precision atomic-aligned time keeping.</p>
+        </div>
+
+        <div class="clock-grid">
+          <!-- Digital Clock Card -->
+          <div class="digital-clock-card">
+            <div class="time-display">
+              <span class="time-part" id="hours">00</span>
+              <span class="time-colon">:</span>
+              <span class="time-part" id="minutes">00</span>
+              <div class="ampm-sec-container">
+                <span class="seconds-display" id="seconds">00</span>
+                <span class="ampm-display" id="ampm">AM</span>
+              </div>
+            </div>
+
+            <div class="date-display" id="full-date">Friday, July 17, 2026</div>
+            <div class="day-display" id="day-of-week">Today is Friday</div>
+
+            <div class="timezone-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+              <span id="local-timezone">GMT+05:30 (India Standard Time)</span>
+            </div>
+          </div>
+
+          <!-- Analog Clock Widget -->
+          <div class="analog-clock-container">
+            <div class="analog-clock">
+              <!-- Dial Ticks (Dynamic Generation via JS) -->
+              <div class="clock-markers" id="clock-markers"></div>
+
+              <!-- Numbers -->
+              <div class="clock-numbers">
+                <span class="clock-number number-12">12</span>
+                <span class="clock-number number-3">3</span>
+                <span class="clock-number number-6">6</span>
+                <span class="clock-number number-9">9</span>
+              </div>
+
+              <!-- Hands -->
+              <div class="clock-hands">
+                <div class="hand hour-hand" id="analog-hour"></div>
+                <div class="hand minute-hand" id="analog-minute"></div>
+                <div class="hand second-hand" id="analog-second"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 2: STOPWATCH
+           ========================================== -->
+      <section class="tab-content" id="stopwatch-tab">
+        <div class="view-header">
+          <h1 class="view-title">Precision Stopwatch</h1>
+          <p class="view-subtitle">High-fidelity millisecond interval tracking.</p>
+        </div>
+
+        <div class="stopwatch-container">
+          <div class="stopwatch-display-card">
+            <div class="stopwatch-time">
+              <span class="sw-time-part" id="sw-hours">00</span>
+              <span class="sw-colon">:</span>
+              <span class="sw-time-part" id="sw-minutes">00</span>
+              <span class="sw-colon">:</span>
+              <span class="sw-time-part" id="sw-seconds">00</span>
+              <span class="stopwatch-ms" id="sw-ms">.00</span>
+            </div>
+
+            <div class="control-btn-group">
+              <button class="btn btn-primary" id="sw-btn-start">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Start</span>
+              </button>
+
+              <button class="btn" id="sw-btn-lap" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                  <line x1="4" y1="22" x2="4" y2="15"></line>
+                </svg>
+                <span>Lap</span>
+              </button>
+
+              <button class="btn btn-danger" id="sw-btn-reset" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <polyline points="3 3 3 8 8 8"></polyline>
+                </svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Laps View List -->
+          <div class="laps-container" id="laps-container" style="display: none;">
+            <ul class="laps-list" id="laps-list">
+              <!-- Lap items injected dynamically -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 3: COUNTDOWN TIMER
+           ========================================== -->
+      <section class="tab-content" id="timer-tab">
+        <div class="view-header">
+          <h1 class="view-title">Countdown Timer</h1>
+          <p class="view-subtitle">Visual radial alert-driven duration scheduler.</p>
+        </div>
+
+        <div class="timer-container">
+          <!-- Circular Timer Widget -->
+          <div class="timer-circle-widget" id="timer-widget-glow">
+            <svg class="timer-svg">
+              <circle class="timer-track-circle" cx="125" cy="125" r="110"></circle>
+              <circle class="timer-progress-circle" id="timer-progress" cx="125" cy="125" r="110"
+                stroke-dasharray="691.15" stroke-dashoffset="0"></circle>
+            </svg>
+
+            <div class="timer-center-content">
+              <!-- Interactive Input Mode -->
+              <div class="timer-input-wrapper" id="timer-input-area">
+                <input type="number" class="timer-num-input" id="timer-hours" min="0" max="99" value="00"
+                  placeholder="00" title="Hours">
+                <span style="font-size: 1.5rem; font-weight:700;">:</span>
+                <input type="number" class="timer-num-input" id="timer-minutes" min="0" max="59" value="05"
+                  placeholder="05" title="Minutes">
+                <span style="font-size: 1.5rem; font-weight:700;">:</span>
+                <input type="number" class="timer-num-input" id="timer-seconds" min="0" max="59" value="00"
+                  placeholder="00" title="Seconds">
+              </div>
+
+              <!-- Static Countdown display Mode (Hidden initially) -->
+              <div class="timer-digits" id="timer-digits-display" style="display:none;">00:05:00</div>
+
+              <span class="timer-label" id="timer-status-label">Set Time</span>
+            </div>
+          </div>
+
+          <!-- Timer Presets -->
+          <div class="timer-presets" id="timer-presets-row">
+            <button class="preset-btn" data-sec="60">1 Min</button>
+            <button class="preset-btn" data-sec="300">5 Min</button>
+            <button class="preset-btn" data-sec="600">10 Min</button>
+            <button class="preset-btn" data-sec="1800">30 Min</button>
+          </div>
+
+          <!-- Controls -->
+          <div class="control-btn-group">
+            <button class="btn btn-primary" id="timer-btn-start">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span id="timer-btn-text">Start</span>
+            </button>
+            <button class="btn btn-danger" id="timer-btn-reset" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <polyline points="3 3 3 8 8 8"></polyline>
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 4: WORLD CLOCK
+           ========================================== -->
+      <section class="tab-content" id="world-tab">
+        <div class="view-header">
+          <h1 class="view-title">Global Zones</h1>
+          <p class="view-subtitle">Monitor key cities and zones concurrently.</p>
+        </div>
+
+        <div class="world-clock-dashboard">
+          <!-- Selection & Addition Bar -->
+          <div class="world-clock-bar">
+            <div class="timezone-select-wrapper">
+              <select class="timezone-select" id="timezone-selector">
+                <option value="" disabled selected>Choose a timezone...</option>
+                <!-- Commonly requested zones -->
+                <option value="America/New_York">New York (EDT/EST, GMT-4/5)</option>
+                <option value="America/Los_Angeles">Los Angeles (PDT/PST, GMT-7/8)</option>
+                <option value="America/Chicago">Chicago (CDT/CST, GMT-5/6)</option>
+                <option value="Europe/London">London (BST/GMT, GMT+1/0)</option>
+                <option value="Europe/Paris">Paris (CEST/CET, GMT+2/1)</option>
+                <option value="Asia/Kolkata">Kolkata (IST, GMT+5:30)</option>
+                <option value="Asia/Singapore">Singapore (SGT, GMT+8)</option>
+                <option value="Asia/Tokyo">Tokyo (JST, GMT+9)</option>
+                <option value="Australia/Sydney">Sydney (AEST/AEDT, GMT+10/11)</option>
+                <option value="Pacific/Auckland">Auckland (NZST/NZDT, GMT+12/13)</option>
+                <option value="Asia/Dubai">Dubai (GST, GMT+4)</option>
+                <option value="Africa/Cairo">Cairo (EET, GMT+2)</option>
+                <option value="America/Sao_Paulo">São Paulo (BRT, GMT-3)</option>
+              </select>
+
+              <button class="btn btn-primary" id="btn-add-timezone">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Timezone Grid -->
+          <div class="world-clocks-grid" id="world-clocks-container">
+            <!-- Timezone cards are dynamically appended here -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
