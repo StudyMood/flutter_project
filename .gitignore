@@ -4,3 +4,7 @@
 **/.idea/
 **/.metadata
 **/*.lock
+*.apk
+build/
+.gradle/
+.dart_tool/
