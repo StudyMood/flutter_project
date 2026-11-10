@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Unit Converter</string>
+    <string name="enter_value">Enter value</string>
+    <string name="convert">Convert</string>
+    <string name="from_unit">From Unit</string>
+    <string name="to_unit">To Unit</string>
+    <string name="swap">Swap</string>
+    <string name="select_category">Measurement Category</string>
+    <string name="error_empty">Please enter a value to convert</string>
+    <string name="error_invalid">Please enter a valid numeric value</string>
+    <string name="error_negative">This category does not support negative values</string>
+    <string name="copied">Result copied to clipboard</string>
+</resources>
